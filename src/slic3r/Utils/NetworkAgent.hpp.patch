@@ -1,0 +1,22 @@
+// NOTE: DNS Hostname Support Added
+// The connect_printer() method now supports both IP addresses and DNS hostnames.
+// 
+// Usage:
+//   - IP address: "192.168.1.100" (existing behavior)
+//   - Hostname: "printer.local" or "orca-printer.local" (new behavior)
+//   - FQDN: "printer.example.com" (new behavior)
+//
+// The implementation automatically detects the input type and performs DNS resolution
+// when necessary using the DNSResolver utility class.
+//
+// Example:
+//   m_agent->connect_printer(dev_id, "orca-printer.local", "bblp", password, true);
+//
+// Files modified:
+// - src/slic3r/Utils/NetworkAgent.hpp
+// - src/slic3r/GUI/DeviceManager.cpp (MachineObject::connect method)
+// - src/slic3r/Utils/DNSResolver.hpp/cpp (new files)
+//
+// The resolution is transparent to the caller - if a hostname is provided,
+// it will be resolved to an IP address before being passed to the underlying
+// printer communication layer.
